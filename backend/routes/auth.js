@@ -11,6 +11,20 @@ const JWT_SECRETE = "this is very secrete code save in invi.. variable"
 
 
 //Route:1
+//creat a user using: POST "/api/auth/allUsers" 
+router.get('/allUsers', async (req, res) => {
+
+  try {
+      const alluser = await User.find();
+
+      res.json(alluser)
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Server Error");
+  }
+})
+
+//Route:2
 //creat a user using: POST "/api/auth/createUser" Doesn't require auth no login required
 
 router.post('/createUser', [

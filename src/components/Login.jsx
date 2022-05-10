@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import { useHistory } from 'react-router-dom'
+import noteContext from '../context/notes/noteContext'
 
 
 const Login = (props) => {
+    const context = useContext(noteContext);
+    const { User } = context;
     const [credentials, setCredentials] = useState({email: "", password: ""}) 
     let history = useHistory();
 
@@ -16,7 +19,8 @@ const Login = (props) => {
             body: JSON.stringify({email: credentials.email, password: credentials.password})
         });
         const json = await response.json()
-        console.log(json);
+        console.log(json.success);
+        User(json)
         if (json.success){
             // Save the auth token and redirect
             localStorage.setItem('token', json.authtoken); 

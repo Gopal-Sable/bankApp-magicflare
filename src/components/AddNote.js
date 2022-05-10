@@ -3,8 +3,8 @@ import noteContext from '../context/notes/noteContext'
 
 const AddNote = (props) => {
     const context = useContext(noteContext);
-    const { addNote } = context;
-    const [note, setNote] = useState({ title: "", description: "", tag: "" })
+    const { add } = context;
+    const [note, setNote] = useState({ Acc:"",balance:"" })
 
     const handleChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
@@ -12,29 +12,26 @@ const AddNote = (props) => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        addNote(note.title, note.description, note.tag);
-        setNote({ title: "", description: "", tag: "" })
-        props.showAlert("Added Successfully","success")
+        add(note.Acc,note.balance);
+        setNote({ Acc: "", balance: ""})
+        props.showAlert("Amount Added Successfully To Your Account","success")
     }
 
     return (
         <div className="container my-3">
-            <h2>Add a Note</h2>
+            <h2>Add a Money</h2>
             <form className="my-3">
                 <div className="mb-3">
-                    <label htmlFor="title" className="form-label">Title</label>
-                    <input type="text" value={note.title} className="form-control" name="title" onChange={handleChange} id="title" aria-describedby="emailHelp" />
+                    <label htmlFor="Acc" className="form-label">Receiver Acc. No</label>
+                    <input type="number" value={note.Acc} className="form-control" name="Acc" onChange={handleChange} id="Acc" aria-describedby="emailHelp" />
 
                 </div>
+              
                 <div className="mb-3">
-                    <label htmlFor="Description" className="form-label">Description</label>
-                    <input type="text" value={note.description} className="form-control" onChange={handleChange} id="description" name="description" />
+                    <label htmlFor="tag" className="form-label">Amount</label>
+                    <input type="number" value={note.balance} className="form-control" onChange={handleChange} id="balance" name="balance" />
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="tag" className="form-label">Tag</label>
-                    <input type="text" value={note.tag} className="form-control" onChange={handleChange} id="tag" name="tag" />
-                </div>
-                <button type="submit" disabled={note.title.length < 5 || note.description.length < 5} onClick={handleClick} className="btn btn-primary">Add Note</button>
+                <button type="submit" disabled={note.balance < 0} onClick={handleClick} className="btn btn-primary">Send</button>
             </form>
         </div>
     )

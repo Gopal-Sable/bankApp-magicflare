@@ -3,19 +3,19 @@ import { useHistory } from 'react-router';
 
 import noteContext from "../context/notes/noteContext.js"
 import AddNote from './AddNote.js';
-import NoteItem from './NoteItem.js';
+import NoteItem from './NoteItem.jsx';
 
-const Notes=(props)=> {
-    const {showAlert}=props;
-    let history=useHistory();
+const Notes = (props) => {
+    const { showAlert } = props;
+    let history = useHistory();
     const context = useContext(noteContext);
     // eslint-disable-next-line 
-    const { notes, showNotes, editNote } = context;
+    const { notes, showNotes } = context;
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            showNotes();    
+            showNotes();
         }
-        else{
+        else {
             history.push("/login")
         }
         // eslint-disable-next-line
@@ -39,13 +39,13 @@ const Notes=(props)=> {
         // e.preventDefault();
 
         // console.log("updating...", note);
-        editNote(note.id, note.title, note.description, note.tag)
+        // editNote(note.id, note.title, note.description, note.tag)
         refClose.current.click();
-        showAlert("updated Successfully","success")
+        showAlert("updated Successfully", "success")
     }
     return (
         <>
-            <AddNote showAlert={showAlert}/>
+            <AddNote showAlert={showAlert} />
             {/* <!-- Button trigger modal --> */}
             <button type="button" className="d-none btn btn-primary" ref={ref} data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
