@@ -57,12 +57,16 @@ router.post('/createUser', [
     });
     const data = {
       user: {
-        id: user.id
-      }
+        id: user.id,
+      },
+      Acc:user.Acc,
+      balance:user.balance,
+      name:user.name
+      
     }
     const authtoken = jwt.sign(data, JWT_SECRETE);
-    success = true;
-    res.json({ success, authtoken })
+  success=true;
+    res.json({success, data, authtoken })
   } catch (error) {
     console.error(error.message);
     success = false;
@@ -97,12 +101,16 @@ router.post('/login', [
     }
     const data = {
       user: {
-        id: user.id
-      }
+        id: user.id,
+        
+      },
+      Acc:user.Acc,
+      balance:user.balance,
+      name:user.name
     }
     const authtoken = jwt.sign(data, JWT_SECRETE);
     success = true;
-    res.json({ success, authtoken })
+    res.json({ success,data, authtoken} )
   } catch (error) {
     console.error(error.message);
     res.status(500).send("internal servaer error")
